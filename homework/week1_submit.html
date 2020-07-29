@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!--    google font-->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <title>christmascandleshop</title>
+
+    <style>
+        * {
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        .candle {
+            height: 400px;
+            width: 500px;
+            display: block;
+
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 40px;
+        }
+
+        h1, h5 {
+            display: inline;
+        }
+
+        .order_button{
+            width: 100px;
+            margin: auto;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+
+        .wrap {
+            /*background-color: green;*/
+            width: 500px;
+            margin: auto;
+        }
+    </style>
+
+    <script>
+        function sayOrder() {
+            alert("주문이 완료되었습니다.")
+        }
+    </script>
+</head>
+
+<body>
+<img src="https://www.thegreenhead.com/imgs/xl/evergreen-tree-candles-xl.jpg" alt="초록 트리 모양 캔들" class="candle">
+
+
+<div class="wrap">
+    <h1> 양초를 팝니다</h1>
+    <h5> 가격: 3,000원/개</h5>
+
+    <p>
+    <h5> 이 양초는 사실 특별한 힘을 가지고 있어요. 양초를 켜고 소원을 빌면 짜자잔 뭐든지 이뤄지게 된답니다. 하나 사가세요! 우드 향이 아주 좋아요</h5>
+    </p>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">주문자이름</span>
+        </div>
+        <input type="text" class="form-control" placeholder="" aria-label="Username"
+               aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">수량</span>
+        </div>
+        <select class="custom-select" id="validatedInputGroupSelect" required>
+            <option value="">--수량을 선택하세요--</option>
+            <option value="1">1개</option>
+            <option value="2">2개</option>
+            <option value="3">3개</option>
+        </select>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">주소</span>
+        </div>
+        <input type="text" class="form-control" placeholder="" aria-label="Username"
+               aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">전화번호</span>
+        </div>
+        <input type="text" class="form-control" placeholder="" aria-label="Username"
+               aria-describedby="basic-addon1">
+    </div>
+
+    <button onclick="sayOrder()"  class="btn btn-primary order_button">주문하기</button>
+
+
+</div>
+</body>
+</html>

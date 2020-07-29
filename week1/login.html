@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <title>로그인페이지</title>
+    <style>
+        * {
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        .login-background {
+            color: white;
+            width: 300px;
+            height: 200px;
+            background-image: url(https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg);
+            background-position: center;
+            background-size: cover;
+
+            border-radius: 10px;
+            text-align: center;
+            padding: 40px;
+
+        }
+
+        #tt {
+            margin: 40px;
+        }
+
+        /*그냥 #button 해도 되지만, 모든 버튼에 적용되는 것?*/
+
+        .wrap {
+            width: 800px;
+            /*width를 꼭 먼저 주어야 함. 안 그러면 row로 꽉 차기 때문에 margin을 줄 수가 없음*/
+            margin: auto;
+            background-color: green;
+
+
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<!--div>div>h1+h3    하고 탭을 누르면, 구조가 바로 만들어짐. -->
+<!--div>div>div  3단으로 만들면 부모자식관계를 더 빠르게 만들 수 있음-->
+<!--.wrap 하고 탭 누르면, class로 만들어짐. #wrap 하고 탭 누르면 id가 만들어짐.    .wrap>div하고 탭-->
+
+
+
+<div class="wrap">
+    <div class="login-background">
+        <h1>로그인페이지</h1>
+        <h3> 아이디, 비밀번호를 입력해주세요</h3>
+    </div>
+    <p>
+        id <input type="text">
+    </p>
+    <p>
+        pw <input type="text">
+
+    </p>
+
+    <button id="tt"> 로그인하기</button>
+</div>
+
+
+</body>
+</html>
