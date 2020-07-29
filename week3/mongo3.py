@@ -24,7 +24,7 @@ target_movies = list(db.movies.find({'star': target_star}))
     # # if (movie_star) == movie["star"]:
 
 
-
+print("hello git~!~!")
 
 # (3) 월-e의 평점과 같은 평점의 영화 제목을 0으로 만들기.  >>>update 해주면 됨
 # 선생님 방법.
