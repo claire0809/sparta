@@ -11,9 +11,11 @@
 import requests
 response_data = requests.get("http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99")
 cityAir = response_data.json()
-
+print(cityAir)
+for key in cityAir.keys():
+    cityAir[key]
 # for city in cityAir:
-#     print(city[])
+    # print(city[])
 # ** 질문왜 RESULT 하고 row 하고 나오지 않지? 왜 RealtimeCityAir만 나오는지? 리스트가 아니라, 딕셔너리라서 FOR문 안되나?
 
 gu_infos = cityAir["RealtimeCityAir"]["row"]

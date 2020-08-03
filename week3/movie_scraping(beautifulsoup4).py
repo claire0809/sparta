@@ -22,6 +22,7 @@ soup = BeautifulSoup(data.text, 'html.parser')
 tr_list = soup.select("#old_content > table > tbody > tr")
 for tr in tr_list:
     title = tr.select_one("td.title > div > a")
+    # print(title)
     #  td.title : tag가 td이면서 class가 title인 것.
 
     rank_image = tr.select_one("td:nth-child(1) > img")
@@ -34,3 +35,5 @@ for tr in tr_list:
         point = point_tag.text
         print(rank, name, point)
 
+#old_content > table > tbody > tr:nth-child(2) > td.title > div > a
+#old_content > table > tbody > tr:nth-child(3) > td.title > div > a
