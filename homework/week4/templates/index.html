@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!--    google font-->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <title>christmascandleshop</title>
+
+    <style>
+        * {
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        .candle {
+            height: 400px;
+            width: 500px;
+            display: block;
+
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 40px;
+        }
+
+        h1, h5 {
+            display: inline;
+        }
+
+        .order_button {
+            width: 100px;
+            margin: auto;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+
+        .wrap {
+            /*background-color: green;*/
+            width: 500px;
+            margin: auto;
+        }
+
+        .excRate {
+            color: blue;
+        }
+    </style>
+
+    <script>
+
+
+        function sayOrder() {
+            // 1. 주문자이름, 수량, 주소, 전화번호를 가져옵니다.(가져오는 것은 jquery로)
+            let name = $('#orderName').val();
+            let count = $('#orderCount').val();
+            let address = $('#address').val();
+            let phone = $('#phoneNum').val();
+            // console.log(name, count)
+            //***질문: console.log 했을 때, 왜 빈칸이 뜨는지??? 아무것도 없이.. error도 없이... 다시 해보기.
+            // console.log(title, author, review) : 밑에 $.ajax 부분 주석처리 한 뒤, console.log() 하고, localhost:5000에서 값 넣고 찍어보기.
+
+            if ($("#orderName").val() == "") {
+                alert("이름을 입력해주세요!")
+            } else if ($("#orderCount").val() == "") {
+                alert("수량을 선택해주세요!")
+            } else if ($("#address").val() == "") {
+                alert("주소를 입력해주세요!")
+            } else if ($("#phoneNum").val() == "") {
+                alert("전화번호를 입력 형식이 틀립니다.010-0000-0000으로 입력해주세요")
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/order",
+                    data: {'name_give': name, 'count_give': count, 'address_give': address, 'phone_give': phone},
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            alert(response["msg"]);
+                            window.location.reload();
+                        }
+                    }
+                })
+            }
+            console.log(name, count, address, phone)
+        }
+
+
+        //***질문:  아랫줄(GET부분)  $(document).ready(function() 이 부분이 post 보다 위에 나와있어야 하는 것 아닌지?? 위치 상관없는지? bookreview랑 비교해보고 다시 짜보기.
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function (response) {
+                    let realRate = response[1]["rate"]
+                    let tempHtml = `${realRate}`
+                    $("#usdRate").append(tempHtml);
+                }
+            })
+            order_listing();
+        });
+
+        function order_listing() {
+            $.ajax({
+                type: "GET",
+                url: "/order",
+                data: {},
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        let orders = response['orders']
+
+                        for (let i = 0; i < orders.length; i++) {
+                            let name = orders[i]['name']
+                            let count = orders[i]['count']
+                            let address = orders[i]['address']
+                            let phone = orders[i]['phone']
+
+                            let table = `<tr>
+                                     <th scope="row">${name}</th>
+                                     <td>${count}</td>
+                                     <td>${address}</td>
+                                     <td>${phone}</td>
+                                     </tr>`
+                            $('#orderInfo').append(table)
+                        }
+                    } else {
+                        alert("주문실패")
+                    }
+                }
+
+            })
+
+        }
+    </script>
+</head>
+
+<body>
+<div class="wrap">
+    <img src="https://www.thegreenhead.com/imgs/xl/evergreen-tree-candles-xl.jpg" alt="초록 트리 모양 캔들" class="candle">
+
+    <h1> 양초를 팝니다</h1>
+    <h5> 가격: 3,000원/개</h5>
+
+    <p>
+    <h5> 이 양초는 사실 특별한 힘을 가지고 있어요. 양초를 켜고 소원을 빌면 짜자잔 뭐든지 이뤄지게 된답니다. 하나 사가세요! 우드 향이 아주 좋아요</h5>
+    </p>
+
+    <p class="excRate" id="usdRate">달러-원 환율:</p>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">주문자이름</span>
+        </div>
+        <input type="text" id="orderName" class="form-control" placeholder="" aria-label="Username"
+               aria-describedby="basic-addon1">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">수량</span>
+        </div>
+        <select class="custom-select" id="orderCount" required>
+            <option value="">--수량을 선택하세요--</option>
+            <option value="1">1개</option>
+            <option value="2">2개</option>
+            <option value="3">3개</option>
+        </select>
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">주소</span>
+        </div>
+        <input type="text" id="address" class="form-control" placeholder="" aria-label="Username"
+               aria-describedby="basic-addon1">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">전화번호</span>
+        </div>
+        <input type="text" id="phoneNum" class="form-control" placeholder="" aria-label="Username"
+               aria-describedby="basic-addon1">
+    </div>
+
+    <button onclick="sayOrder()" class="btn btn-primary order_button">주문하기</button>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">이름</th>
+            <th scope="col">수량</th>
+            <th scope="col">주소</th>
+            <th scope="col">전화번호</th>
+        </tr>
+        </thead>
+<!--        주의! <tbody>에다 id값을 주어야 함. <tr> 이름, 수량, 주소, 전화번호</tr>에다가 주는 것 아님. -->
+        <tbody id="orderInfo">
+
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
