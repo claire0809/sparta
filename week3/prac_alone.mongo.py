@@ -24,8 +24,8 @@ db = client.dbsparta  # 'dbsparta'라는 이름의 db를 만듭니다. dbsparta 
 # MongoDB에서 데이터 모두 보기(read)
 all_users = list(db.users.find({}))
 # ** 질문(27,28라인): find({}) method 사용할 때 list 꼭 필요한지?. 리스트 없이 print(db.users.find({})) 하면 출력 안됨. & find_one에서 list는 필요 없는지?
-# print(all_users)
-# print(db.users.find({}))
+print(all_users)
+print(db.users.find({}))
 
 
 # print(all_users[2])  # 2번째 결과값을 보기

@@ -38,6 +38,8 @@ for same_star in same_stars:
 
 
 #**질문: if문을 사용해서 월-E의 평점과 같은 평점의 영화 제목을 가져올 수는 없는지??
+# mongodb 에 데이터가 저장되어 있기 때문에,, 모든 값을 전부 꺼내와서 if 문으로 할 수도 있지만.. find로 list 를 만들어서 쓸 수도 있지만
+# 비효율적이기 때문에 필요한 데이터만 추출
 # for wal_e in movies:
 #     print(wal_e)
     # if {'star': 9.35} :

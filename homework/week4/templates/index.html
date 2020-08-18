@@ -73,6 +73,7 @@
             let phone = $('#phoneNum').val();
             // console.log(name, count)
             //***질문: console.log 했을 때, 왜 빈칸이 뜨는지??? 아무것도 없이.. error도 없이... 다시 해보기.
+            // 답: 값이 없기 때문... 변수에 값이 담기지 않거나..
             // console.log(title, author, review) : 밑에 $.ajax 부분 주석처리 한 뒤, console.log() 하고, localhost:5000에서 값 넣고 찍어보기.
 
             if ($("#orderName").val() == "") {
@@ -101,6 +102,8 @@
 
 
         //***질문:  아랫줄(GET부분)  $(document).ready(function() 이 부분이 post 보다 위에 나와있어야 하는 것 아닌지?? 위치 상관없는지? bookreview랑 비교해보고 다시 짜보기.
+        // 위치는 상관이 없음. document.ready.function 을 건너뛰고 위에서 밑으로 내려옴. 다 로드(?) 된 뒤에 docuement.ready.function 부분을 보기 때문에 실행되는(?) 순서만 바뀌는 것일 뿐 위치는 상관 없음.
+
         $(document).ready(function () {
             $.ajax({
                 type: "GET",

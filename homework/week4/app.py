@@ -23,8 +23,11 @@ def save_order():
     count_receive = request.form['count_give']
     address_receive = request.form['address_give']
     phone_receive = request.form['phone_give']
-
     # ***질문 : 아래줄. print 값이 error 인 이유? KeyError: 'name'   (name_give 데이터 입력하기 전이어서?)
+    # 답 : 서버 먼저 만들면서 아직 name_give 값이 설정이 안되었기 때문.
+    # 예를 들어 phone_receive2 = request.form['phone_give2'] 를 입력하고,save한 뒤 실행해도(?) 값이 없기 때문에 KeyError가 뜸.
+
+
     print(name_receive)
     print(count_receive)
 
