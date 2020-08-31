@@ -99,8 +99,8 @@ def show_stars():
     # ***질문 : 97라인(윗라인)완성 후, 임의로 LIKE 수정했을 때, robo3T에서 데이터 순서 바뀌어야 하는 것 아닌지? 아니면,저장된 데이터 순서 그대로 있어야 하는 것?
     # ***질문 : localhost:5000/api/list 에서만 like 순위 반영해서 데이터 순서 바뀌어 나오는 것인지..?
     # 2. 성공하면 success 메시지와 함께 stars_list 목록을 클라이언트에 전달합니다.
-    return jsonify({'result': 'success', 'stars_list': stars})
-
+    return jsonify({'result': 'success', 'stars_list': 'get연결'})
+# stars
 
 # *** 질문: bookreview나 alonememo에서 localhost:5000/뒷부분 이 같을 때, 왜 get 내용만 뜨는 것인지? post 내용은 어떻게 확인??
 @app.route('/api/like', methods=['POST'])

@@ -328,23 +328,24 @@
                 data: {},
                 success: function (response) {
                     // if (response["result"] == "success") {
-                        console.log(response["msg"]);
-                        let articles = response["msg"]
-                        for (let i = 0; i < articles.length; i++) {
-                            let article = articles[i]
+                    console.log(response["msg"]);
+                    let articles = response["msg"]
+                    for (let i = 0; i < articles.length; i++) {
+                        let article = articles[i]
 
-                            let comment = article["comment"];
-                            let desc = article["desc"];
-                            let image = article["image"];
+                        let comment = article["comment"];
+                        let desc = article["desc"];
+                        let image = article["image"];
 
-                            let title = article["title"]
-                            let url = article["url"];
-                            makeCard(url, title, desc, comment, image)
-                        }
+                        let title = article["title"]
+                        let url = article["url"];
+                        makeCard(url, title, desc, comment, image)
+                    }
 
-                    // }
+                    }
                 })
         }
+
 
         function makeCard(url, title, desc, comment, image) {
             let tempHtml = `<div class="card">

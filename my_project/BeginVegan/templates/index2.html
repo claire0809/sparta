@@ -3,7 +3,8 @@
 <!--3.개발해야하는 우선 기능: 이미지 및 가격 크롤링하기 -->
 <!--4. 프로젝트에 필요한 데이터소스(헬로네이처, 비욘드 미트, 디어 달리아, 낫아워스 등 공식홈페이지 이미지 참고)-->
 <!--5. To do list : 데이터 크롤링, ZERO WASTE ZONE 프론트엔드 수정하기 -->
-<!--댓글 기능.도 달면 좋음... 방법 1. 미리 데이터베이스를 만들어놓고 MONGODB에서 정보만 가져와서 뿌려주는 거라.. (크롤링이 고정된 문제점)  -->
+
+<!--crud 선생님 추천: 댓글 기능.도 달면 좋음... 방법 1. 미리 데이터베이스를 만들어놓고 MONGODB에서 정보만 가져와서 뿌려주는 거라.. (크롤링이 고정된 문제점)  -->
 <!--2. 사용자가 요청하면 크롤링 되는 것.(문제점: 불필요한 크롤링 때문에 콘텐츠가 늦게 뜰 수 있음)      3. 사용자가 페이지를 요청한 날짜를 확인. 데이터베이스에 언제 크롤링 했는지를 기록. 크롤링을 안했으면 데이터베이스에 넣어서.. 1번과 2번을 섞는 것.. -->
 <!--1번이나 2번 둘 중 하나 정하고, 3번 할지 말지 결정할 것. 1번으로 몽고DB 연결해서 하기~!!!  크로링 코드 짜기 시작할 것. -->
 <!--네비게이션 기능. 픽스돼서 스크롤 해도 따라다닐 수 있도록. &     패션&뷰티, 오늘뭐먹지 등등 클릭했을 때 새로운 페이지 나오는 것은 필수적인 것들 모두 다 한 뒤에 하기~!  -->
@@ -21,9 +22,7 @@
           crossorigin="anonymous">
 
     <!--        JS-->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
             integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
             crossorigin="anonymous"></script>
@@ -36,6 +35,13 @@
 
     <!--        style-->
     <style>
+
+        /*<!--       x : 횡축 스크롤-->*/
+        body {
+            overflow-x: hidden;
+            margin: 0;
+        }
+
         .center {
             text-align: center;
         }
@@ -57,11 +63,190 @@
             margin-bottom: 15px;
         }
 
-        .jumbotron {
+        .container {
             background-image: url("https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_10.jpg");
             /*    cover 로 바꾸는 법?? 1주차 다시 보기. */
+            width: 1000px
+            /*display: block*/
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 15vw;
+            object-fit: cover;
+        }
+
+        /*질문: notours 이미지 가운데로 맞추는 방법? */
+        .carousel-inner {
+            width: 100%;
+            height: 50vw;
+            object-fit: cover;
+        }
+
+
+        nav {
+            background-color: green;
+        }
+
+        /*#main {*/
+        /*    !*background-image: url("http://www.energyday.org/images/default/main/vtxt.png");*!*/
+        /*    !*background-image: url('../static/saveenergy.jpg');*!*/
+        /*    background-repeat: no-repeat;*/
+        /*    !*width: 100vw;*!*/
+        /*    !*padding: 120px;*!*/
+        /*    !*margin-bottom: 40px;*!*/
+        /*    margin-top: 50px;*/
+        /*}*/
+
+        .fashion-beauty-title {
+            margin-top: 40px;
+            position: center;
+        }
+
+        #main {
+            margin-top: 40px;
+            /*background-color: yellow;*/
+            /*position: relative;*/
+        }
+
+        #main button {
+            margin: auto;
+            position: relative;
+        }
+
+
+        /*.img{*/
+        /*    background-image: url("../static/save_energy.jpg");*/
+        /*    background-position: center top;*/
+        /*    background-size: 100% auto;*/
+        /*    background-repeat: no-repeat;*/
+        /*    !*height: 100vh;*!*/
+        /*    margin-top: 40px;*/
+
+        /*    background-color: yellow;*/
+        /*}*/
+
+        /*.img img{*/
+        /*    visibility: hidden;*/
+        /*    width: 100%;*/
+        /*    height: auto;*/
+
+        /*}*/
+
+        #main .background {
+            width: 100%;
+            height: auto;
+            /*position: fixed;*/
+            background-attachment: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /*질문: 디어달리아 같은 효과 넣어보기 & 마지막으로 보내준 배경효과?*/
+        #fixedBackground {
+
+            background-image: url("../static/polarbear.jpg");
+            /*background-attachment: scroll;*/
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+
+        }
+
+        /*.carousel-inner{*/
+        /*    width: 640px;*/
+        /*    height: 360px;*/
+        /*}*/
+
+        .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+            width: 100%;
         }
     </style>
+
+    <script>
+
+        $(document).ready(function () {
+            // index.html 로드가 완료되면 자동으로 showStar() 함수를 호출합니다.
+            showHellonature();
+            //질문: 함수 두 개 있어도 되는지?
+            showMangoplate();
+        });
+
+        function showMangoplate() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/mangoplate',
+                data: {},
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        let mangoplate = response['mangoplate']
+                        console.log(mangoplate)
+
+                        for (let i = 0; i < mangoplate.length; i++) {
+                            let url = mangoplate[i]['final_url']
+                            let image = mangoplate[i]['image']
+                            let name = mangoplate[i]['name']
+                            let location = mangoplate[i]['location']
+
+                            console.log(url, image, name, location)
+
+                            let tempHtml = `<div class="card">
+                                            <a href="${url}" target="_blank">
+                                                <img src="${image}" class="card-img-top" alt="레스토랑사진">
+                                            </a>
+                                            <div class="card-body">
+                                            <h5 class="card-title">${name}</h5>
+                                            <p class="card-text">${location}</p>
+                                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago 별점추가 & 레스토랑 정보 추가. 중식한식 등 </small></p>
+                                            </div>
+                                       </div>`
+                            $("#whatToEat").append(tempHtml)
+                        }
+                    }
+                }
+            });
+        }
+
+        function showHellonature() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/hellonature',
+                data: {},
+                success: function (response) {
+                    //질문o: 연결 확인하는 법
+                    if (response["result"] == "success") {
+                        // console.log(response['hellonature'])
+                        let hellonature = response['hellonature']
+
+                        for (let i = 0; i < hellonature.length; i++) {
+                            let url = hellonature[i]['final_url']
+                            let image = hellonature[i]['image']
+                            let name = hellonature[i]['name']
+                            let price = hellonature[i]['price']
+
+                            let tempHtml = `<div class="col mb-4">
+                                            <div class="card">
+                                                <a href="${url}" target="_blank">
+                                                    <img src="${image}"
+                                                         class="card-img-top"
+                                                         alt="음식사진">
+                                                </a>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${name}</h5>
+                                                    <p class="card-text">${price}</p>
+                                                </div>
+                                            </div>
+                                        </div>`
+                            $("#produceShopping").append(tempHtml)
+                        }
+                    }
+                    // let item = response['hellonature']
+                    // console.log(item)
+                }
+            });
+        }
+
+    </script>
 
 
 </head>
@@ -74,188 +259,202 @@
 <!--기사, 음식, 패션, 뷰티 >>> 버튼으로 만들어 새로운 페이지 만들기.(음식, 패션, 뷰티는 클릭하면 카드 형식으로 정리 & 찜하기. 찜해제 기능. -->
 <!-- 질문: 에너지의 날. 이미지 구할 수 없어서.. 스크린샷 찍어서 저장한 뒤 사용해도 되는지..? 에너지의 날 http://www.energyday.org/index-->
 
+<!--navigation-->
+<nav class="navbar fixed-top">
+    <a href="#" class="badge badge-info">맛있는 장보기</a>
+    <a href="#" class="badge badge-info">오늘 뭐먹지?</a>
+    <a href="#" class="badge badge-info">패션</a>
+    <a href="#" class="badge badge-info">뷰티</a>
+</nav>
 
-<a href="#" class="badge badge-info">맛있는 장보기</a>
-<a href="#" class="badge badge-info">오늘 뭐먹지?</a>
-<a href="#" class="badge badge-info">패션</a>
-<a href="#" class="badge badge-info">뷰티</a>
 
-<!--article-->
-<h1> 기사 </h1>
+<!--<움직이는 글 넣고 싶은 부분.(디어달리아 참고)>-->
+<!--fashion & beauty-->
+<div id='fashion-beauty'>
+    <div class="fashion-beauty-title">
+        <h4> 입는 채식의 시작 </h4>
+        <h1> Fashion & Beauty </h1>
+    </div>
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="./static/notours_bag.jpg" class="d-block w-100" alt="낫아워스백">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>NOTOURS</h5>
+                    <p>NOTOURS는 비건 패션브랜드입니다. </p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://i.ytimg.com/vi/KPoH98ZzgGg/maxresdefault.jpg"
+                     class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>meixir</h5>
+                    <p>멜릭서는 비건스킨케어 브랜드입니다.</p>
+                </div>
+            </div>
+            <!-- https://www.newstap.co.kr/news/photo/202005/109535_182699_1038.jpg           -->
+            <div class="carousel-item">
+                <img src="https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_3.jpg" class="d-block w-100"
+                     alt="디어달리아">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>DEAR DAHLIA</h5>
+                    <p>디어달리아는 럭셔리 비건 뷰티 브랜드입니다.</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
 
-<!--<div class="card bg-dark text-white">-->
-<!--    <img src="http://www.energyday.org/images/default/main/vtxt.png" class="card-img" alt="...">-->
-<!--    <div class="card-img-overlay">-->
-<!--        <h5 class="card-title">8월 22일 에너지의 날</h5>-->
+
+<!--<div class="card mb-3">-->
+<!--    <img src="https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_10.jpg" class="card-img-top-article" alt="...">-->
+<!--    <div class="card-body">-->
+<!--        <h5 class="card-title">Card title</h5>-->
 <!--        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.-->
 <!--            This content is a little bit longer.</p>-->
-<!--        <p class="card-text">Last updated 3 mins ago</p>-->
+<!--        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
 <!--    </div>-->
 <!--</div>-->
 
-<!--질문: image 저장했을 때 링크주소 복사?가 안되는데 어떻게 이미지 삽입하는지 & 점보트론 에너지의 날 저장된 이미지 넣는 법-->
 
+<!--질문: image 저장했을 때 링크주소 복사?가 안되는데 어떻게 이미지 삽입하는지-->
+<!--답: static에 파일 넣어서 하기.-->
 
-<!--<div class = 'container'>-->
-<!--    <div class="jumbotron">-->
-<!--        <h1 class="display-4"> 8월 22일 에너지의 날</h1>-->
-<!--        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to-->
-<!--            featured content or information.</p>-->
-<!--        <hr class="my-4">-->
-<!--        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>-->
-<!--        <a class="btn btn-primary btn-lg" href="http://www.energyday.org/index" role="button">불 끄러 가기</a>-->
-<!--    </div>-->
-<!--</div>-->
 
 <!--food-->
 <!--오늘 뭐먹지-->.
 <!--헬로네이처 or 쿠팡 등등 채식제품 상품 크롤링해서 띄우기. 질문 : meta 태그 없을 경우?  -->
 <!--헬로네이처 li 태그,, 값 없는 것을 빼고(if문으로) -->
 
-
-<div class="card mb-3">
-    <img src="https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_10.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-            This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+<div id='what-to-eat'>
+    <div class="what-to-eat-title">
+        <h4> 오늘 뭐먹지? </h4>
+        <h1> Restaurant & Recipe </h1>
     </div>
-</div>
-
-
-<h1> 오늘 뭐먹지?(레시피 & 레스토랑)</h1>
-
-<div class="card-deck">
-    <div class="card">
-        <img src="/" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-    </div>
-    <div class="card">
-
-        <img src="https://img-ex.hellonature.co.kr/images/ex/PGD/ITEM/028/028270/028270_001_21.jpg" class="card-img-top"
-             alt="[바이오라이프] 비건치즈 핫페퍼 슬라이스">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-    </div>
-    <div class="card">
-        <img src="/" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                content. This card has even longer content than the first to show that equal height action.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
+    <div id="whatToEat" class="card-deck">
+        <!--        <div class="card">-->
+        <!--            <img src="../static/pasta.jpg" class="card-img-top" alt="...">-->
+        <!--            <div class="card-body">-->
+        <!--                <h5 class="card-title">Card title</h5>-->
+        <!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional-->
+        <!--                    content. This content is a little bit longer.</p>-->
+        <!--                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 </div>
 
 <!--질문: 이미지 링크 주소로 복사해올 떄, 이미지 크기 설정하는 방법?? -->
-
-<h1> 맛있는 장보기 </h1>
-<div class="row row-cols-1 row-cols-md-2">
-    <div class="col mb-4">
-        <div class="card">
-            <img src="https://www.corporateknights.com/wp-content/uploads/2018/02/cleameat1.jpg" class="card-img-top"
-                 alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-        </div>
+<!--답: 구글링으로 부트스트랩 카드 고정하는 법 찾아보기. & css 적용.-->
+<div id='shopping'>
+    <div class="what-to-eat-title">
+        <h4> 맛있는 장보기 </h4>
+        <h1> Food </h1>
     </div>
-    <div class="col mb-4">
-        <div class="card">
-            <img src="https://www.corporateknights.com/wp-content/uploads/2018/02/cleameat1.jpg" class="card-img-top"
-                 alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col mb-4">
-        <div class="card">
-            <img src="https://www.corporateknights.com/wp-content/uploads/2018/02/cleameat1.jpg" class="card-img-top"
-                 alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col mb-4">
-        <div class="card">
-            <img src="https://img-ex.hellonature.co.kr/images/ex/PGD/ITEM/028/028270/028270_001_21.jpg"
-                 class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col mb-4">
-        <div class="card">
-            <img src="https://www.corporateknights.com/wp-content/uploads/2018/02/cleameat1.jpg" class="card-img-top"
-                 alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
+    <div id=produceShopping class="row row-cols-1 row-cols-md-2">
+<!--        <div class="col mb-4">-->
+<!--            <div class="card">-->
+<!--                <img src="https://www.corporateknights.com/wp-content/uploads/2018/02/cleameat1.jpg"-->
+<!--                     class="card-img-top"-->
+<!--                     alt="...">-->
+<!--                <div class="card-body">-->
+<!--                    <h5 class="card-title">Card title</h5>-->
+<!--                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to-->
+<!--                        additional-->
+<!--                        content. This content is a little bit longer.</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 </div>
 
 
-<!--<움직이는 글 넣고 싶은 부분.(디어달리아 참고)>-->
-<h2> 입는 채식의 시작 </h2>
+<!--고정된 배경. 디어달리아 참고-->
+
+<div id='fixedBackground'>
+    <!--    <img src="../static/pasta.jpg" alt="">-->
+</div>
 
 
-<!--fashion-->
-<h1> 패션 & 뷰티 </h1>
+<!--carousel복사본. 삭제할 것 -->
+<!--    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">-->
+<!--        <ol class="carousel-indicators">-->
+<!--            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>-->
+<!--            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>-->
+<!--            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>-->
+<!--        </ol>-->
+<!--        <div class="carousel-inner">-->
+<!--            <div class="carousel-item active">-->
+<!--                <img src="https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_10.jpg" class="d-block w-100" alt="...">-->
+<!--            </div>-->
+<!--            https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_10.jpg-->
+<!--            <div class="carousel-item">-->
+<!--                <img src="https://cdn.imweb.me/thumbnail/20200616/94ffc156e3232.jpg" class="d-block w-100" alt="...">-->
+<!--            </div>-->
+<!--            <div class="carousel-item">-->
+<!--                <img src="https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_10.jpg" class="d-block w-100" alt="...">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">-->
+<!--            <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--            <span class="sr-only">Previous</span>-->
+<!--        </a>-->
+<!--        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">-->
+<!--            <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--            <span class="sr-only">Next</span>-->
+<!--        </a>-->
+<!--    </div>-->
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_10.jpg" class="d-block w-100" alt="...">
-        </div>
-        https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_10.jpg
-        <div class="carousel-item">
-            <img src="https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_10.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_10.jpg" class="d-block w-100" alt="...">
-        </div>
+<!--article-->
+<!-- *** 패딩 주기-->
+
+<div id="main">
+    <div class="what-to-eat-title">
+        <h4> 우리의 지구 </h4>
+        <h1> Environment </h1>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
+
+    <a href="https://wwfkorea.campaignus.me/fy20polarbear?utm_source=naver_pc&utm_medium=cpc&utm_campaign=fy20polarbear&utm_term=%EB%B6%81%EA%B7%B9%EA%B3%B0%EC%82%B4%EB%A6%AC%EA%B8%B0&n_media=27758&n_query=%EB%B6%81%EA%B7%B9%EA%B3%B0%EC%82%B4%EB%A6%AC%EA%B8%B0&n_rank=2&n_ad_group=grp-a001-01-000000016832397&n_ad=nad-a001-01-000000103003464&n_keyword_id=nkw-a001-01-000003114611492&n_keyword=%EB%B6%81%EA%B7%B9%EA%B3%B0%EC%82%B4%EB%A6%AC%EA%B8%B0&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkeh5hjeo%7Cci%3D0yS0001KFyHtKD1j2vks%7Ctr%3Dsa%7Chk%3D3d4804cee0fa55a14ddbf5d23f9bacf41c2bafc1"
+       target="_blank">
+        <img class="background" src="../static/polarbear.jpg" alt="">
     </a>
 </div>
 
-<h1> zero waste zone </h1>
-<!--코오롱몰 참고-->
+<div id='zero-waste'>
+    <div class="what-to-eat-title">
+        <h4> 실천하는 제로웨이스트 </h4>
+        <h1> Zero Waste Zone </h1>
+    </div>
+    <div class="card mb-3" style="max-width: 540px;">
+
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_3.jpg" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                        additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <!--beauty-->
 <!--<h1> 뷰티 </h1>-->
@@ -290,18 +489,6 @@
 <!--</div>-->
 
 
-<section class="hero is-warning">
-    <div class="hero-body">
-        <div class="container center">
-            <h1 class="title">
-                마이 페이보릿 무비스타😆
-            </h1>
-            <h2 class="subtitle">
-                순위를 매겨봅시다
-            </h2>
-        </div>
-    </div>
-</section>
 <div class="star-list" id="star-box">
     <div class="card">
         <div class="card-content">
