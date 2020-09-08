@@ -18,7 +18,7 @@ def home():
 @app.route('/api/mangoplate', methods=['GET'])
 def show_mangoplate():
     # 1. db에서 mystar 목록 전체를 검색합니다. ID는 제외하고 like 가 많은 순으로 정렬합니다.
-    mangoplate = list(db.mangoplate.find({}, {'_id': False}).limit(3))
+    mangoplate = list(db.mangoplate.find({}, {'_id': False}).skip(2).limit(3))
     print(mangoplate)
 
     return jsonify({'result': 'success', 'mangoplate': mangoplate})
@@ -27,7 +27,7 @@ def show_mangoplate():
 @app.route('/api/hellonature', methods=['GET'])
 def show_hellonature():
     # 1. db에서 mystar 목록 전체를 검색합니다. ID는 제외하고 like 가 많은 순으로 정렬합니다.
-    hellonature = list(db.hellonature.find({}, {'_id': False}).limit(5))
+    hellonature = list(db.hellonature.find({}, {'_id': False}).skip(6).limit(5))
     print(hellonature)
 
     return jsonify({'result': 'success', 'hellonature': hellonature})

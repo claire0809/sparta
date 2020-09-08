@@ -43,7 +43,6 @@
 
         /*.container {*/
         /*    background-image: url("https://baramimg.cafe24.com/b/0_main/MainBanner_Kr_PC_10.jpg");*/
-        /*    !*    cover 로 바꾸는 법?? 1주차 다시 보기. *!*/
         /*    width: 1000px*/
         /*    !*display: block*!*/
         /*}*/
@@ -80,8 +79,6 @@
         .begin-vegan-title {
             text-align: center;
             color: darkgreen;
-            /*글씨체 바꾸고 볼드체 다시 진행.*/
-            font-weight: bolder;
             font-family: 'Lobster', cursive;
         }
 
@@ -137,6 +134,18 @@
             height: 700px;
         }
 
+        #produceShopping {
+            /*flex-direction: row;*/
+            /*flex-grow: inherit;*/
+
+
+            display: flex;
+             min-height:80px;
+            line-height: 2em;
+            justify-content: center;
+            align-items: center;
+        }
+
         .environment-img {
             width: 100%;
         }
@@ -171,7 +180,6 @@
         $(document).ready(function () {
             // index.html 로드가 완료되면 자동으로 showStar() 함수를 호출합니다.
             showHellonature();
-            //질문: 함수 두 개 있어도 되는지?
             showMangoplate();
         });
 
@@ -227,7 +235,7 @@
                             let name = hellonature[i]['name']
                             let price = hellonature[i]['price']
 
-                            let tempHtml = `<div class="col mb-4">
+                            let tempHtml = `<div class="col-md-4 mb-4 d-flex align-items-stretch">
                                             <div class="card">
                                                 <a href="${url}" target="_blank">
                                                     <img src="${image}" class="card-img-top" alt="음식사진">
@@ -288,7 +296,7 @@
             </div>
             <div class="carousel-item">
                 <img src="https://i.ytimg.com/vi/KPoH98ZzgGg/maxresdefault.jpg"
-                     class="d-block w-100" alt="...">
+                     class="d-block w-100" alt="멜릭서">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>meixir</h5>
                     <p>멜릭서는 비건 스킨케어 브랜드입니다.</p>
@@ -324,7 +332,8 @@
         <h4> 오늘 뭐먹지? </h4>
         <h1> Restaurant & Recipe </h1>
     </div>
-    <div id="whatToEat" class="card-deck">
+    <div id="whatToEat" class="card-deck" class="card h-100">
+
         <!--        기존 카드 코드-->
         <!--        <div class="card">-->
         <!--            <img src="../static/pasta.jpg" class="card-img-top" alt="...">-->
